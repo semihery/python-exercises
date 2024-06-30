@@ -12,8 +12,30 @@ def click(x,y):
     time.sleep(0.002)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,0,0)
 
+
 print("started")
 
+while not keyboard.is_pressed('q'):
+    try:
+        target = pyautogui.locateCenterOnScreen(r"C:\Users\semih\Projects\python-exercises\Exercise Scripts\clickBot\target.png", confidence=0.70, region=(5,120,420,780))
+        click(target[0],target[1]+15)
+    except pyautogui.ImageNotFoundException:
+        continue
+
+
+print("quit")
+
+
+
+
+
+
+
+
+
+
+
+""" 
 def scan(i):
     
     print("thread_{} başlatıldı".format(i))
@@ -44,9 +66,9 @@ thread_0.join()
 thread_1.join()
 thread_2.join()
 thread_3.join()
+"""
 
 
-print("quit")
 
 
 

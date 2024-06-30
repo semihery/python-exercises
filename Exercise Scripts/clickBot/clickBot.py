@@ -15,23 +15,59 @@ def click(x,y):
 
 print("started")
 
-while not keyboard.is_pressed('q'):
-    try:
-        target = pyautogui.locateCenterOnScreen(r"C:\Users\semih\Projects\python-exercises\Exercise Scripts\clickBot\target.png", confidence=0.70, region=(5,120,420,780))
-        click(target[0],target[1]+15)
-    except pyautogui.ImageNotFoundException:
-        continue
+def scan0():
+    while not keyboard.is_pressed('q'):
+        try:
+            target = pyautogui.locateCenterOnScreen(r"C:\Users\semih\Projects\python-exercises\Exercise Scripts\clickBot\target.png", confidence=0.82, region=(5,140,420,205))
+            click(target[0],target[1]+18)
+            time.sleep(0.1)
+        except pyautogui.ImageNotFoundException:
+            continue
+
+def scan1():
+    while not keyboard.is_pressed('q'):
+        try:
+            target = pyautogui.locateCenterOnScreen(r"C:\Users\semih\Projects\python-exercises\Exercise Scripts\clickBot\target.png", confidence=0.82, region=(5,345,420,205))
+            click(target[0],target[1]+18)
+            time.sleep(0.1)
+        except pyautogui.ImageNotFoundException:
+            continue
+
+def scan2():
+    while not keyboard.is_pressed('q'):
+        try:
+            target = pyautogui.locateCenterOnScreen(r"C:\Users\semih\Projects\python-exercises\Exercise Scripts\clickBot\target.png", confidence=0.82, region=(5,550,420,205))
+            click(target[0],target[1]+18)
+            time.sleep(0.1)
+        except pyautogui.ImageNotFoundException:
+            continue
+
+def scan3():
+    while not keyboard.is_pressed('q'):
+        try:
+            target = pyautogui.locateCenterOnScreen(r"C:\Users\semih\Projects\python-exercises\Exercise Scripts\clickBot\target.png", confidence=0.82, region=(5,755,420,205))
+            click(target[0],target[1]+18)
+            time.sleep(0.1)
+        except pyautogui.ImageNotFoundException:
+            continue
+
+thread_0 = threading.Thread(target=scan0)
+thread_1 = threading.Thread(target=scan1)
+thread_2 = threading.Thread(target=scan2)
+thread_3 = threading.Thread(target=scan3)
+
+thread_0.start()
+thread_1.start()
+thread_2.start()
+thread_3.start()
+
+thread_0.join()
+thread_1.join()
+thread_2.join()
+thread_3.join()
 
 
 print("quit")
-
-
-
-
-
-
-
-
 
 
 
@@ -51,21 +87,6 @@ def scan(i):
 
     print("thread_{} durduruldu".format(i))
     
-
-thread_0 = threading.Thread(target=scan,args=(0,))
-thread_1 = threading.Thread(target=scan,args=(1,))
-thread_2 = threading.Thread(target=scan,args=(2,))
-thread_3 = threading.Thread(target=scan,args=(3,))
-
-thread_0.start()
-thread_1.start()
-thread_2.start()
-thread_3.start()
-
-thread_0.join()
-thread_1.join()
-thread_2.join()
-thread_3.join()
 """
 
 

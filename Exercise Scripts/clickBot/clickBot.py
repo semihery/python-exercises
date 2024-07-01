@@ -9,106 +9,67 @@ import threading
 def click(x,y):
     win32api.SetCursorPos((x,y))
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,0,0)
-    time.sleep(0.002)
+    time.sleep(0.003)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,0,0)
 
 
 print("started")
 
-def scan0():
-    while not keyboard.is_pressed('q'):
-        try:
-            target = pyautogui.locateCenterOnScreen(r"C:\Users\semih\Projects\python-exercises\Exercise Scripts\clickBot\target.png", confidence=0.82, region=(5,140,420,205))
-            click(target[0],target[1]+18)
-            time.sleep(0.1)
-        except pyautogui.ImageNotFoundException:
-            continue
+targetImg = r"C:\Users\semih\Projects\python-exercises\Exercise Scripts\clickBot\target.png"
+
+        
 
 def scan1():
     while not keyboard.is_pressed('q'):
         try:
-            target = pyautogui.locateCenterOnScreen(r"C:\Users\semih\Projects\python-exercises\Exercise Scripts\clickBot\target.png", confidence=0.82, region=(5,345,420,205))
-            click(target[0],target[1]+18)
-            time.sleep(0.1)
+            target = pyautogui.locateCenterOnScreen(targetImg, confidence=0.83, region=(5,140,420,205))
+            click(target[0],target[1]+20)
+            time.sleep(0.08)
         except pyautogui.ImageNotFoundException:
             continue
 
 def scan2():
     while not keyboard.is_pressed('q'):
         try:
-            target = pyautogui.locateCenterOnScreen(r"C:\Users\semih\Projects\python-exercises\Exercise Scripts\clickBot\target.png", confidence=0.82, region=(5,550,420,205))
-            click(target[0],target[1]+18)
-            time.sleep(0.1)
+            target = pyautogui.locateCenterOnScreen(targetImg, confidence=0.83, region=(5,345,420,205))
+            click(target[0],target[1]+20)
+            time.sleep(0.08)
         except pyautogui.ImageNotFoundException:
             continue
 
 def scan3():
     while not keyboard.is_pressed('q'):
         try:
-            target = pyautogui.locateCenterOnScreen(r"C:\Users\semih\Projects\python-exercises\Exercise Scripts\clickBot\target.png", confidence=0.82, region=(5,755,420,205))
-            click(target[0],target[1]+18)
-            time.sleep(0.1)
+            target = pyautogui.locateCenterOnScreen(targetImg, confidence=0.83, region=(5,550,420,205))
+            click(target[0],target[1]+20)
+            time.sleep(0.08)
         except pyautogui.ImageNotFoundException:
             continue
 
-thread_0 = threading.Thread(target=scan0)
+def scan4():
+    while not keyboard.is_pressed('q'):
+        try:
+            target = pyautogui.locateCenterOnScreen(targetImg, confidence=0.83, region=(5,755,420,205))
+            click(target[0],target[1]+20)
+            time.sleep(0.08)
+        except pyautogui.ImageNotFoundException:
+            continue
+
+
 thread_1 = threading.Thread(target=scan1)
 thread_2 = threading.Thread(target=scan2)
 thread_3 = threading.Thread(target=scan3)
+thread_4 = threading.Thread(target=scan4)
 
-thread_0.start()
 thread_1.start()
 thread_2.start()
 thread_3.start()
+thread_4.start()
 
-thread_0.join()
 thread_1.join()
 thread_2.join()
 thread_3.join()
+thread_4.join()
 
 
 print("quit")
-
-
-
-""" 
-def scan(i):
-    
-    print("thread_{} başlatıldı".format(i))
-
-    while keyboard.is_pressed('q') == False:
-        pic = pyautogui.screenshot(region=(5,240+80*i,420,1))
-
-        for x in range(420):
-                r,g,b = pic.getpixel((x,0))
-                if 195<r<220 and 215<g<250 and b<100:   # 193<r<210 and 215<g<235 and b<10:
-                    click(5+x,255+80*i)
-                    break
-
-    print("thread_{} durduruldu".format(i))
-    
-"""
-
-
-
-
-
-# while keyboard.is_pressed('q') == False:
-#     print("rev")
-#     pic = pyautogui.screenshot(region=(5,240,420,20))
-    # pic.save(r"C:\Users\semih\OneDrive\Resimler\Ekran Görüntüleri\savedImage.png")
-
-    # for y in range(0,20,2):
-    #     for x in range(0,420,2):
-    #         r,g,b = pic.getpixel((x,y))
-    #         if 195<r<208 and 220<g<245 and b<11:
-    #             click(5+x,270+y)
-    #             time.sleep(0.05)
-
-
-
-
-
-# 150,225  200,260  0,50  RENK ARALIGI R,R G,G B,B
-# 5,180   425,180  
-# 5,580   425,580

@@ -7,6 +7,7 @@ import keyboard
 import win32api, win32con
 import threading
 import math
+# import os
 
 def click(x, y, bombs):
     abort = False
@@ -16,6 +17,8 @@ def click(x, y, bombs):
             abort = True
             break
     if not abort and not pause_event.is_set():
+        # os.system(f'adb shell input tap {x-5} {y-140}')
+
         win32api.SetCursorPos((x, y))
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0)
         time.sleep(0.006)
@@ -38,13 +41,16 @@ def checkStop():
 
 def checkGameOver():
     while not stop_event.is_set():
+
+        
         if pyautogui.pixel(375,741) > (243,243,243) or pyautogui.pixel(355,930) > (243,243,243):
-            pause_event.set()
+            # pause_event.set()
+            click(355,930,[])
             # print("paused")
-        else:
-            pause_event.clear()
+        # else:
+            # pause_event.clear()
             # print("resumed")
-        time.sleep(0.005)
+        time.sleep(0.01)
 
 
 def scan(region):
@@ -56,7 +62,7 @@ def scan(region):
         maskBomb = cv2.inRange(scrRgb, (127,122,119), (180,176,177))
         # cv2.imshow("maskGreen ", maskGreen)
         # cv2.waitKey(1)
-        # cv2.imshow("maskBomb ", maskBomb)
+        # cv2.imshow("maskBomb ", maskBomb)qq
         # cv2.waitKey(1)
         
         contours, _ = cv2.findContours(maskGreen, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
@@ -87,8 +93,9 @@ def scan(region):
                     
                     i += 1
                     if i == 4:
-                        break                
-        time.sleep(0.005)
+                        break
+        # print(time.time())
+        time.sleep(0.001)  # 50 - 80 milisaniye arası
         # cv2.imshow('Centers ', scrBgr)
         # cv2.waitKey(1)
 

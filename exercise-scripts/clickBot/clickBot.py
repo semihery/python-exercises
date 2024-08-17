@@ -12,7 +12,7 @@ import math
 def click(x, y, bombs):
     abort = False
     for bomb in bombs:
-        if math.dist([x,y],bomb) < 90:
+        if math.dist([x,y],bomb) < 70:
             # print("abort")
             abort = True
             break
@@ -59,7 +59,7 @@ def scan(region):
         scrHsv = cv2.cvtColor(scrRgb, cv2.COLOR_RGB2HSV)
         # scrBgr = cv2.cvtColor(scrRgb, cv2.COLOR_RGB2BGR)
         maskGreen = cv2.inRange(scrHsv, (29, 85, 215), (47,255,255))
-        maskBomb = cv2.inRange(scrRgb, (127,122,119), (180,176,177))
+        maskBomb = cv2.inRange(scrRgb, (127,122,119), (190,186,177))
         # cv2.imshow("maskGreen ", maskGreen)
         # cv2.waitKey(1)
         # cv2.imshow("maskBomb ", maskBomb)qq
@@ -70,7 +70,7 @@ def scan(region):
 
         bombs = []
         for bomb in contoursBomb:
-            if cv2.contourArea(bomb) >= 40:
+            if cv2.contourArea(bomb) >= 20:
                 M = cv2.moments(bomb)
                 if M["m00"] != 0:
                     cX = int(M["m10"] / M["m00"])

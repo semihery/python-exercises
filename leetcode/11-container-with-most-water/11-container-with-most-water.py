@@ -1,9 +1,25 @@
 class Solution(object):
     def maxArea(self, height):
-        maxArea = 0
-        for i, j in enumerate(height[0 : -1]):
-            for m, n in list(enumerate(height))[i + 1 : ]:
-                if min(j, n) * (m-i) > maxArea:
-                    maxArea = min(j, n) * (m-i)
-        
+        leftIndex = 0
+        rightIndex = -1
+        leftHeigth = height[0]
+        rightHeigth = height[-1]
+        maxArea = min(leftHeigth,rightHeigth)*(len(height)+rightIndex-leftIndex)
+
+
+        while leftIndex + abs(rightIndex) < len(height) - 1:
+            if not leftHeigth > rightHeigth:
+                leftIndex += 1
+                if height[leftIndex] > leftHeigth:
+                    leftHeigth = height[leftIndex]
+                    if min(leftHeigth,rightHeigth)*(len(height)+rightIndex-leftIndex) > maxArea:
+                        maxArea = min(leftHeigth,rightHeigth)*(len(height)+rightIndex-leftIndex)
+
+            else:
+                rightIndex -= 1
+                if height[rightIndex] > rightHeigth:
+                    rightHeigth = height[rightIndex]
+                    if min(leftHeigth,rightHeigth)*(len(height)+rightIndex-leftIndex) > maxArea:
+                        maxArea = min(leftHeigth,rightHeigth)*(len(height)+rightIndex-leftIndex)
+
         return maxArea

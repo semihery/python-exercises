@@ -99,7 +99,7 @@ def scan(region):
         # cv2.imshow('Centers ', scrBgr)
         # cv2.waitKey(1)
 
-region = (5,140,440,820)
+region = (6,100,274,620)
 
 threads = [threading.Thread(target=checkStop), threading.Thread(target=scan, args=(region,)), threading.Thread(target=checkGameOver)]
 

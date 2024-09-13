@@ -12,7 +12,7 @@ import math
 def click(x, y, bombs):
     abort = False
     for bomb in bombs:
-        if math.dist([x,y],bomb) < 35:
+        if math.dist([x,y],bomb) < 70:
             # print("abort")
             abort = True
             break
@@ -43,9 +43,9 @@ def checkGameOver():
     while not stop_event.is_set():
 
         
-        if pyautogui.pixel(244,519) > (243,243,243) or pyautogui.pixel(146,630) > (243,243,243):
+        if pyautogui.pixel(375,741) > (243,243,243) or pyautogui.pixel(355,930) > (243,243,243):
             # pause_event.set()
-            click(98,680,[])
+            click(355,930,[])
             # print("paused")
         # else:
             # pause_event.clear()
@@ -70,12 +70,12 @@ def scan(region):
 
         bombs = []
         for bomb in contoursBomb:
-            if cv2.contourArea(bomb) >= 12:
+            if cv2.contourArea(bomb) >= 20:
                 M = cv2.moments(bomb)
                 if M["m00"] != 0:
                     cX = int(M["m10"] / M["m00"])
                     cY = int(M["m01"] / M["m00"])
-                    bombs.append([3+cX,60+cY+10])
+                    bombs.append([5+cX,140+cY+20])
                     # cv2.circle(scrBgr, (cX, cY), 4, (255, 10, 30), -1)
 
         i = 0
@@ -87,7 +87,7 @@ def scan(region):
                     cX = int(M["m10"] / M["m00"])
                     cY = int(M["m01"] / M["m00"])
 
-                    click(3+cX, 60+cY+10, bombs)
+                    click(5+cX, 140+cY+20, bombs)
                     time.sleep(0.002)
                     # cv2.circle(scrBgr, (cX, cY), 4, (10, 10, 255), -1)
                     
@@ -99,7 +99,7 @@ def scan(region):
         # cv2.imshow('Centers ', scrBgr)
         # cv2.waitKey(1)
 
-region = (3,60,290,622)
+region = (5,140,440,820)
 
 threads = [threading.Thread(target=checkStop), threading.Thread(target=scan, args=(region,)), threading.Thread(target=checkGameOver)]
 

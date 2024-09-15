@@ -7,17 +7,15 @@ import keyboard
 import win32api, win32con
 import threading
 import math
-# import os
 
 def click(x, y, bombs):
     abort = False
     for bomb in bombs:
-        if math.dist([x,y],bomb) < 70:
+        if math.dist([x,y],bomb) < 50:
             # print("abort")
             abort = True
             break
     if not abort and not pause_event.is_set():
-        # os.system(f'adb shell input tap {x-5} {y-140}')
 
         win32api.SetCursorPos((x, y))
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0)
@@ -42,13 +40,19 @@ def checkStop():
 def checkGameOver():
     while not stop_event.is_set():
 
-        
-        if pyautogui.pixel(375,741) > (243,243,243) or pyautogui.pixel(355,930) > (243,243,243):
-            # pause_event.set()
-            click(355,930,[])
+        if pyautogui.pixel(375,741) > (243,243,243):
+            pause_event.set()
+
+        elif pyautogui.pixel(340,930) > (243,243,243):
+            pause_event.set()
+            win32api.SetCursorPos((340, 930))
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0)
+            time.sleep(0.006)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0)
+            time.sleep(0.001)
             # print("paused")
-        # else:
-            # pause_event.clear()
+        else:
+            pause_event.clear()
             # print("resumed")
         time.sleep(0.01)
 

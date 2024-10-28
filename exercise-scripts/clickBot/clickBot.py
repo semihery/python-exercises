@@ -11,7 +11,7 @@ import math
 def click(x, y, bombs):
     abort = False
     for bomb in bombs:
-        if math.dist([x,y],bomb) < 50:
+        if math.dist([x,y],bomb) < 80:
             # print("abort")
             abort = True
             break
@@ -40,12 +40,12 @@ def checkStop():
 def checkGameOver():
     while not stop_event.is_set():
 
-        if pyautogui.pixel(375,741) > (243,243,243):
+        if pyautogui.pixel(555,1100) > (243,243,243):
             pause_event.set()
 
-        elif pyautogui.pixel(340,930) > (243,243,243):
+        elif pyautogui.pixel(520,1350) > (192,243,86):
             pause_event.set()
-            win32api.SetCursorPos((340, 930))
+            win32api.SetCursorPos((520, 1350))
             win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0)
             time.sleep(0.006)
             win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0)
@@ -74,24 +74,24 @@ def scan(region):
 
         bombs = []
         for bomb in contoursBomb:
-            if cv2.contourArea(bomb) >= 20:
+            if cv2.contourArea(bomb) >= 30:
                 M = cv2.moments(bomb)
                 if M["m00"] != 0:
                     cX = int(M["m10"] / M["m00"])
                     cY = int(M["m01"] / M["m00"])
-                    bombs.append([5+cX,140+cY+20])
+                    bombs.append([5+cX,200+cY+20])
                     # cv2.circle(scrBgr, (cX, cY), 4, (255, 10, 30), -1)
 
         i = 0
         for contour in contours:
-            if cv2.contourArea(contour) >= 60:
+            if cv2.contourArea(contour) >= 100:
                 M = cv2.moments(contour)
                 
                 if M["m00"] != 0:
                     cX = int(M["m10"] / M["m00"])
                     cY = int(M["m01"] / M["m00"])
 
-                    click(5+cX, 140+cY+20, bombs)
+                    click(5+cX, 200+cY+40, bombs)
                     time.sleep(0.002)
                     # cv2.circle(scrBgr, (cX, cY), 4, (10, 10, 255), -1)
                     
@@ -103,7 +103,7 @@ def scan(region):
         # cv2.imshow('Centers ', scrBgr)
         # cv2.waitKey(1)
 
-region = (5,140,440,820)
+region = (5,200,635,1000)
 
 threads = [threading.Thread(target=checkStop), threading.Thread(target=scan, args=(region,)), threading.Thread(target=checkGameOver)]
 
